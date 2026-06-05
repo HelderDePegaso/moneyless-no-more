@@ -2,11 +2,11 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { 
-  LayoutDashboard, 
-  Receipt, 
-  PiggyBank, 
-  CreditCard, 
+import {
+  LayoutDashboard,
+  Receipt,
+  PiggyBank,
+  CreditCard,
   TrendingUp
 } from 'lucide-react';
 
@@ -51,7 +51,7 @@ export default function Sidebar() {
       <div className="sidebar-footer">
         <div className="user-avatar">U</div>
         <div className="user-info">
-          <h4>Utilizador ISPTEC</h4>
+          <h4>Utilizador Suazana</h4>
           <p>Membro Premium</p>
         </div>
       </div>

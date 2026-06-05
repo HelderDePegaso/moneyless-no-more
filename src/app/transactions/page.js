@@ -2,22 +2,22 @@
 
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { 
-  getTransactions, 
-  saveTransactions, 
-  getBudgets, 
+import {
+  getTransactions,
+  saveTransactions,
+  getBudgets,
   saveBudgets,
-  initializeDB 
+  initializeDB
 } from '../../services/db';
 import { detectAllLeaks } from '../../services/leakDetector';
-import { 
-  Search, 
-  Filter, 
-  Plus, 
-  Trash2, 
-  UploadCloud, 
-  ArrowUpRight, 
-  ArrowDownRight, 
+import {
+  Search,
+  Filter,
+  Plus,
+  Trash2,
+  UploadCloud,
+  ArrowUpRight,
+  ArrowDownRight,
   CheckCircle,
   HelpCircle
 } from 'lucide-react';
@@ -142,7 +142,7 @@ export default function Transactions() {
             const desc = parts[1].replace(/"/g, '').trim();
             const val = parseFloat(parts[2].trim());
             const tType = parts[3] ? parts[3].trim().toLowerCase() : 'expense';
-            
+
             newTxs.push({
               id: `t-imp-${Date.now()}-${idx}`,
               description: desc,
@@ -161,7 +161,7 @@ export default function Transactions() {
         setTransactions(updated);
         saveTransactions(updated);
         updateBudgetSpending(updated);
-        
+
         setImportText('');
         setShowImportArea(false);
         triggerNotification(`${importedCount} transações importadas e auto-categorizadas!`);
@@ -198,8 +198,8 @@ export default function Transactions() {
 
   // Filtragem dinâmica das transações
   const filteredTransactions = transactions.filter(tx => {
-    const matchesSearch = tx.description.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          tx.category.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearch = tx.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      tx.category.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesType = filterType === 'all' || tx.type === filterType;
     const matchesCategory = filterCategory === 'all' || tx.category === filterCategory;
     return matchesSearch && matchesType && matchesCategory;
@@ -219,7 +219,7 @@ export default function Transactions() {
           borderRadius: '8px',
           boxShadow: '0 10px 25px rgba(16, 185, 129, 0.3)',
           display: 'flex',
-          align-items: 'center',
+          alignItems: 'center',
           gap: '0.75rem',
           zIndex: 9999,
           animation: 'fadeIn 0.3s ease-out'
@@ -236,8 +236,8 @@ export default function Transactions() {
           <p>Gerencie as suas receitas e despesas, faça importações ou configure filtros de análise.</p>
         </div>
         <div style={{ display: 'flex', gap: '1rem' }}>
-          <button 
-            className="btn btn-secondary" 
+          <button
+            className="btn btn-secondary"
             onClick={() => {
               setShowImportArea(!showImportArea);
               setShowAddForm(false);
@@ -245,8 +245,8 @@ export default function Transactions() {
           >
             <UploadCloud size={16} /> Importar Dados
           </button>
-          <button 
-            className="btn btn-primary" 
+          <button
+            className="btn btn-primary"
             onClick={() => {
               setShowAddForm(!showAddForm);
               setShowImportArea(false);
@@ -262,18 +262,18 @@ export default function Transactions() {
         <section className="card" style={{ marginBottom: '2rem', animation: 'fadeIn 0.3s ease-out' }}>
           <h3 style={{ color: '#fff', marginBottom: '0.5rem' }}>Importador Inteligente de Extrato</h3>
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', marginBottom: '1.25rem' }}>
-            Cole o extrato das suas transações no formato CSV (ex: *Data,Descrição,Valor,Tipo,Categoria*) ou JSON. 
+            Cole o extrato das suas transações no formato CSV (ex: *Data,Descrição,Valor,Tipo,Categoria*) ou JSON.
             O motor de regras do Fuga de Dinheiro fará a categorização automática dos gastos baseado nos nomes.
           </p>
-          
+
           <div className="form-group">
-            <textarea 
-              className="input-control" 
+            <textarea
+              className="input-control"
               style={{ minHeight: '120px', fontFamily: 'monospace', fontSize: '0.8rem', resize: 'vertical' }}
               placeholder={`Exemplo CSV:
 2026-05-20,Compra Netflix Assinatura,19.99,expense
 2026-05-20,Uber Viagem Centro,15.50,expense
-2026-05-19,Salario Mensal ISPTEC,1800.00,income,Salário`}
+2026-05-19,Salario Mensal IMETRO,1800.00,income,Salário`}
               value={importText}
               onChange={(e) => setImportText(e.target.value)}
             />
@@ -294,10 +294,10 @@ export default function Transactions() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem', marginBottom: '1.5rem' }}>
               <div className="form-group" style={{ marginBottom: '0' }}>
                 <label>Descrição</label>
-                <input 
-                  type="text" 
-                  className="input-control" 
-                  placeholder="Ex: Almoço Restaurante" 
+                <input
+                  type="text"
+                  className="input-control"
+                  placeholder="Ex: Almoço Restaurante"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   required
@@ -305,12 +305,12 @@ export default function Transactions() {
               </div>
 
               <div className="form-group" style={{ marginBottom: '0' }}>
-                <label>Valor (€)</label>
-                <input 
-                  type="number" 
-                  step="0.01" 
-                  className="input-control" 
-                  placeholder="Ex: 24.50" 
+                <label>Valor (kz)</label>
+                <input
+                  type="number"
+                  step="0.01"
+                  className="input-control"
+                  placeholder="Ex: 24.50"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
                   required
@@ -319,9 +319,9 @@ export default function Transactions() {
 
               <div className="form-group" style={{ marginBottom: '0' }}>
                 <label>Tipo de Lançamento</label>
-                <select 
-                  className="input-control" 
-                  value={type} 
+                <select
+                  className="input-control"
+                  value={type}
                   onChange={(e) => setType(e.target.value)}
                 >
                   <option value="expense">Despesa (Débito)</option>
@@ -332,9 +332,9 @@ export default function Transactions() {
               {type === 'expense' && (
                 <div className="form-group" style={{ marginBottom: '0' }}>
                   <label>Categoria</label>
-                  <select 
-                    className="input-control" 
-                    value={category} 
+                  <select
+                    className="input-control"
+                    value={category}
                     onChange={(e) => setCategory(e.target.value)}
                   >
                     <option value="Alimentação">Alimentação</option>
@@ -349,9 +349,9 @@ export default function Transactions() {
 
               <div className="form-group" style={{ marginBottom: '0' }}>
                 <label>Data</label>
-                <input 
-                  type="date" 
-                  className="input-control" 
+                <input
+                  type="date"
+                  className="input-control"
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
                   required
@@ -370,24 +370,24 @@ export default function Transactions() {
       {/* Seção de Filtros e Busca */}
       <section className="card" style={{ marginBottom: '1.5rem', padding: '1.25rem' }}>
         <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: '1rem', alignItems: 'center' }}>
-          
+
           <div style={{ position: 'relative' }}>
             <span style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }}>
               <Search size={16} />
             </span>
-            <input 
-              type="text" 
-              className="input-control" 
-              style={{ paddingLeft: '2.5rem' }} 
-              placeholder="Buscar por descrição ou categoria..." 
+            <input
+              type="text"
+              className="input-control"
+              style={{ paddingLeft: '2.5rem' }}
+              placeholder="Buscar por descrição ou categoria..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
 
           <div>
-            <select 
-              className="input-control" 
+            <select
+              className="input-control"
               value={filterType}
               onChange={(e) => setFilterType(e.target.value)}
             >
@@ -398,8 +398,8 @@ export default function Transactions() {
           </div>
 
           <div>
-            <select 
-              className="input-control" 
+            <select
+              className="input-control"
               value={filterCategory}
               onChange={(e) => setFilterCategory(e.target.value)}
             >
@@ -450,16 +450,16 @@ export default function Transactions() {
                         {tx.category}
                       </span>
                     </td>
-                    <td style={{ 
-                      textAlign: 'right', 
-                      fontWeight: '600', 
-                      color: tx.type === 'income' ? '#10b981' : '#f3f4f6' 
+                    <td style={{
+                      textAlign: 'right',
+                      fontWeight: '600',
+                      color: tx.type === 'income' ? '#10b981' : '#f3f4f6'
                     }}>
-                      {tx.type === 'income' ? '+' : '-'} {new Intl.NumberFormat('pt-PT', { style: 'currency', currency: 'EUR' }).format(tx.amount)}
+                      {tx.type === 'income' ? '+' : '-'} {new Intl.NumberFormat('pt-PT', { style: 'currency', currency: 'AOA' }).format(tx.amount)}
                     </td>
                     <td style={{ textAlign: 'center' }}>
-                      <button 
-                        className="btn-icon" 
+                      <button
+                        className="btn-icon"
                         title="Apagar Lançamento"
                         onClick={() => handleDeleteTransaction(tx.id)}
                       >

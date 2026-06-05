@@ -1,20 +1,20 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { 
-  getTransactions, 
-  getBudgets, 
-  getSubscriptions, 
-  initializeDB 
+import {
+  getTransactions,
+  getBudgets,
+  getSubscriptions,
+  initializeDB
 } from '../../services/db';
 import { detectAllLeaks } from '../../services/leakDetector';
-import { 
-  TrendingUp, 
-  TrendingDown, 
-  Percent, 
-  Award, 
-  FileText, 
-  Printer, 
+import {
+  TrendingUp,
+  TrendingDown,
+  Percent,
+  Award,
+  FileText,
+  Printer,
   ArrowRight,
   TrendingUp as TrendIcon,
   HelpCircle,
@@ -33,7 +33,7 @@ export default function Reports() {
     const tx = getTransactions();
     const bd = getBudgets();
     const sb = getSubscriptions();
-    
+
     setTransactions(tx);
     setBudgets(bd);
     setSubscriptions(sb);
@@ -105,7 +105,7 @@ export default function Reports() {
           Relatório de Auditoria de Custos - Sistema Fuga de Dinheiro
         </h2>
         <div style={{ display: 'flex', justifySpace: 'space-between', fontSize: '0.85rem', marginTop: '1rem', color: '#555' }}>
-          <span>**Autor**: Equipa Projeto ISPTEC (Hélder Sebastião, Márcia Custódio, Suzana Neto)</span>
+          <span>**Autor**: Equipa Projeto IMETRO (Hélder Sebastião, Márcia Custódio, Suzana Neto)</span>
           <span>**Data**: {new Date().toLocaleDateString('pt-PT')}</span>
         </div>
       </div>
@@ -115,7 +115,7 @@ export default function Reports() {
         <div className="card stat-card">
           <div className="stat-info">
             <p>Média por Transação</p>
-            <h2>€{avgExpenseValue}</h2>
+            <h2>kz{avgExpenseValue}</h2>
           </div>
           <div className="stat-icon primary" style={{ backgroundColor: 'var(--primary-glow)', color: 'var(--primary)' }}>
             <TrendingDown size={24} />
@@ -127,7 +127,7 @@ export default function Reports() {
             <p>Maior Dreno Financeiro</p>
             <h2>{biggestDrain.category}</h2>
             <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-              Acumulado: €{biggestDrain.amount.toFixed(2)}
+              Acumulado: kz{biggestDrain.amount.toFixed(2)}
             </span>
           </div>
           <div className="stat-icon danger">
@@ -150,7 +150,7 @@ export default function Reports() {
 
       {/* Grid Intermediário: Ranking de Categorias e Top Despesas */}
       <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
-        
+
         {/* Ranking das Despesas por Categoria */}
         <div className="card">
           <h3 style={{ color: '#fff', marginBottom: '1.5rem' }}>Ranking de Despesas por Categoria</h3>
@@ -170,13 +170,13 @@ export default function Reports() {
                         {idx + 1}. {item.category}
                       </span>
                       <span style={{ fontWeight: '600', color: 'var(--text-secondary)' }}>
-                        €{item.amount.toFixed(2)} ({percent}%)
+                        kz{item.amount.toFixed(2)} ({percent}%)
                       </span>
                     </div>
 
                     {/* Barra de Progresso Customizada para Representar a Proporção */}
                     <div className="progress-bar-container" style={{ height: '6px' }}>
-                      <div 
+                      <div
                         className="progress-bar-fill primary"
                         style={{ width: `${percent}%`, background: 'linear-gradient(90deg, var(--primary), var(--info))' }}
                       ></div>
@@ -214,7 +214,7 @@ export default function Reports() {
                         <span className="category-tag" style={{ fontSize: '0.7rem' }}>{tx.category}</span>
                       </td>
                       <td style={{ textAlign: 'right', fontWeight: '600', color: 'var(--danger)', fontSize: '0.85rem' }}>
-                        - €{tx.amount.toFixed(2)}
+                        - kz{tx.amount.toFixed(2)}
                       </td>
                     </tr>
                   ))}
@@ -250,7 +250,7 @@ export default function Reports() {
                     <strong>{leak.title}</strong>: {leak.description}
                   </td>
                   <td style={{ padding: '0.5rem', color: '#000', fontWeight: 'bold', textAlign: 'right' }}>
-                    €{leak.savingPotential.toFixed(2)}
+                    kz{leak.savingPotential.toFixed(2)}
                   </td>
                 </tr>
               ))}

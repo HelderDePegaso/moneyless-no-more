@@ -1,19 +1,19 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { 
-  getSubscriptions, 
-  saveSubscriptions, 
-  getTransactions, 
+import {
+  getSubscriptions,
+  saveSubscriptions,
+  getTransactions,
   saveTransactions,
-  initializeDB 
+  initializeDB
 } from '../../services/db';
 import { detectAllLeaks } from '../../services/leakDetector';
-import { 
-  CreditCard, 
-  AlertTriangle, 
-  Calendar, 
-  ShieldAlert, 
+import {
+  CreditCard,
+  AlertTriangle,
+  Calendar,
+  ShieldAlert,
   CheckCircle,
   HelpCircle,
   Clock,
@@ -93,7 +93,7 @@ export default function Subscriptions() {
           borderRadius: '8px',
           boxShadow: '0 10px 25px rgba(16, 185, 129, 0.3)',
           display: 'flex',
-          align-items: 'center',
+          alignItems: 'center',
           gap: '0.75rem',
           zIndex: 9999,
           animation: 'fadeIn 0.3s ease-out'
@@ -101,7 +101,8 @@ export default function Subscriptions() {
           <CheckCircle2 size={20} />
           <span style={{ fontSize: '0.9rem', fontWeight: '500' }}>{notification}</span>
         </div>
-      )}
+      )
+      }
 
       {/* Cabeçalho */}
       <header className="page-header">
@@ -116,7 +117,7 @@ export default function Subscriptions() {
         <div className="card stat-card" style={{ borderLeft: '4px solid var(--primary)' }}>
           <div className="stat-info">
             <p>Custo Mensal Total</p>
-            <h2>€{totalMonthlyCost.toFixed(2)}</h2>
+            <h2>kz{totalMonthlyCost.toFixed(2)}</h2>
           </div>
           <div className="stat-icon primary">
             <CreditCard size={24} />
@@ -126,16 +127,16 @@ export default function Subscriptions() {
         <div className="card stat-card" style={{ borderLeft: '4px solid var(--info)' }}>
           <div className="stat-info">
             <p>Custo Anual Projetado</p>
-            <h2>€{totalAnnualCost.toFixed(2)}</h2>
+            <h2>kz{totalAnnualCost.toFixed(2)}</h2>
           </div>
           <div className="stat-icon primary" style={{ backgroundColor: 'var(--info-glow)', color: 'var(--info)' }}>
             <Calendar size={24} />
           </div>
         </div>
 
-        <div className="card stat-card" style={{ 
-          borderLeft: leaksCount > 0 ? '4px solid var(--danger)' : '4px solid var(--success)', 
-          border: leaksCount > 0 ? '1px solid rgba(239, 68, 68, 0.2)' : '1px solid var(--border-color)' 
+        <div className="card stat-card" style={{
+          borderLeft: leaksCount > 0 ? '4px solid var(--danger)' : '4px solid var(--success)',
+          border: leaksCount > 0 ? '1px solid rgba(239, 68, 68, 0.2)' : '1px solid var(--border-color)'
         }}>
           <div className="stat-info">
             <p>Vazamentos de Assinatura</p>
@@ -143,9 +144,9 @@ export default function Subscriptions() {
               {leaksCount} Críticos
             </h2>
           </div>
-          <div className="stat-icon danger" style={{ 
-            backgroundColor: leaksCount > 0 ? 'var(--danger-glow)' : 'var(--success-glow)', 
-            color: leaksCount > 0 ? 'var(--danger)' : 'var(--success)' 
+          <div className="stat-icon danger" style={{
+            backgroundColor: leaksCount > 0 ? 'var(--danger-glow)' : 'var(--success-glow)',
+            color: leaksCount > 0 ? 'var(--danger)' : 'var(--success)'
           }}>
             <ShieldAlert size={24} />
           </div>
@@ -155,7 +156,7 @@ export default function Subscriptions() {
       {/* Auditoria de Assinaturas Ativas */}
       <section style={{ marginBottom: '2.5rem' }}>
         <h3 style={{ color: '#fff', marginBottom: '1.25rem' }}>Serviços Ativos em Auditoria</h3>
-        
+
         {activeSubs.length === 0 ? (
           <div className="card" style={{ textAlign: 'center', padding: '3rem', color: 'var(--text-muted)' }}>
             Nenhuma assinatura ativa registada.
@@ -185,7 +186,7 @@ export default function Subscriptions() {
                   <div style={{ margin: '1rem 0', padding: '0.75rem', backgroundColor: 'rgba(0,0,0,0.15)', borderRadius: '6px' }}>
                     <div style={{ display: 'flex', justifySpace: 'space-between', fontSize: '0.85rem', marginBottom: '0.35rem' }}>
                       <span style={{ color: 'var(--text-secondary)' }}>Preço:</span>
-                      <span style={{ color: '#fff', fontWeight: '600' }}>€{sub.amount} / {sub.period}</span>
+                      <span style={{ color: '#fff', fontWeight: '600' }}>kz{sub.amount} / {sub.period}</span>
                     </div>
                     <div style={{ display: 'flex', justifySpace: 'space-between', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
                       <span>Último uso:</span>
@@ -194,31 +195,31 @@ export default function Subscriptions() {
                   </div>
 
                   {isLeak && (
-                    <div style={{ 
-                      fontSize: '0.75rem', 
-                      color: sub.status === 'inativo' ? 'var(--danger)' : 'var(--warning)', 
+                    <div style={{
+                      fontSize: '0.75rem',
+                      color: sub.status === 'inativo' ? 'var(--danger)' : 'var(--warning)',
                       backgroundColor: sub.status === 'inativo' ? 'var(--danger-glow)' : 'var(--warning-glow)',
-                      padding: '0.5rem', 
+                      padding: '0.5rem',
                       borderRadius: '4px',
                       marginBottom: '1rem',
                       lineHeight: '1.3'
                     }}>
-                      {sub.status === 'inativo' 
-                        ? 'Vazamento Crítico! Não há acessos a este serviço nos últimos 30 dias.' 
+                      {sub.status === 'inativo'
+                        ? 'Vazamento Crítico! Não há acessos a este serviço nos últimos 30 dias.'
                         : 'Alerta! O seu histórico mostra pouca utilização deste serviço.'}
                     </div>
                   )}
 
                   <div className="sub-actions">
-                    <button 
-                      className="btn btn-secondary" 
+                    <button
+                      className="btn btn-secondary"
                       style={{ fontSize: '0.8rem', padding: '0.5rem' }}
                       onClick={() => triggerNotification('Detalhes de uso atualizados.')}
                     >
                       Auditar Uso
                     </button>
-                    <button 
-                      className="btn btn-danger" 
+                    <button
+                      className="btn btn-danger"
                       style={{ fontSize: '0.8rem', padding: '0.5rem' }}
                       onClick={() => handleToggleActive(sub.id, sub.status)}
                     >
@@ -248,13 +249,13 @@ export default function Subscriptions() {
               <div key={sub.id} className="card sub-card" style={{ borderColor: 'rgba(16, 185, 129, 0.2)' }}>
                 <div style={{ display: 'flex', justifySpace: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
                   <h3 style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }}>{sub.name}</h3>
-                  <span className="badge income" style={{ fontSize: '0.65rem' }}>Economizando €{sub.amount}</span>
+                  <span className="badge income" style={{ fontSize: '0.65rem' }}>Economizando kz{sub.amount}</span>
                 </div>
                 <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '1rem' }}>
-                  Custo anual evitado: **€{(sub.amount * 12).toFixed(2)} / ano**
+                  Custo anual evitado: **kz{(sub.amount * 12).toFixed(2)} / ano**
                 </p>
-                <button 
-                  className="btn btn-secondary" 
+                <button
+                  className="btn btn-secondary"
                   style={{ width: '100%', fontSize: '0.8rem', padding: '0.4rem' }}
                   onClick={() => handleToggleActive(sub.id, sub.status)}
                 >
@@ -265,6 +266,6 @@ export default function Subscriptions() {
           </div>
         )}
       </section>
-    </div>
+    </div >
   );
 }

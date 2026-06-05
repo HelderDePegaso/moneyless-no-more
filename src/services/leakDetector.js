@@ -74,7 +74,7 @@ export const detectAllLeaks = (transactions, budgets, subscriptions) => {
         id: `leak-budget-warning-${budget.id}`,
         type: 'budget_warning',
         title: `Aviso de Orçamento: ${budget.category}`,
-        description: `Você já consumiu ${Math.round((spent/limit)*100)}% do orçamento de "${budget.category}". Restam apenas ${formatCurrency(remaining)} disponíveis para o mês.`,
+        description: `Você já consumiu ${Math.round((spent / limit) * 100)}% do orçamento de "${budget.category}". Restam apenas ${formatCurrency(remaining)} disponíveis para o mês.`,
         severity: 'low',
         savingPotential: 0,
         category: budget.category,
@@ -85,13 +85,13 @@ export const detectAllLeaks = (transactions, budgets, subscriptions) => {
   });
 
   // 4. Detecção de Taxas Bancárias / Tarifas Ocultas Acumuladas
-  const feeTx = transactions.filter(t => 
-    t.type === 'expense' && 
-    (t.description.toLowerCase().includes('tarifa') || 
-     t.description.toLowerCase().includes('taxa multa') || 
-     t.description.toLowerCase().includes('comissão mult'))
+  const feeTx = transactions.filter(t =>
+    t.type === 'expense' &&
+    (t.description.toLowerCase().includes('tarifa') ||
+      t.description.toLowerCase().includes('taxa multa') ||
+      t.description.toLowerCase().includes('comissão mult'))
   );
-  
+
   if (feeTx.length > 0) {
     const totalFees = feeTx.reduce((acc, curr) => acc + curr.amount, 0);
     if (totalFees > 10) {
@@ -114,7 +114,7 @@ export const detectAllLeaks = (transactions, budgets, subscriptions) => {
   if (nonSubExpenses.length > 0) {
     const sum = nonSubExpenses.reduce((acc, curr) => acc + curr.amount, 0);
     const avg = sum / nonSubExpenses.length;
-    
+
     nonSubExpenses.forEach(tx => {
       // Se um gasto avulso for maior que 4 vezes a média e maior que 80
       if (tx.amount > avg * 3.5 && tx.amount > 80) {
@@ -153,7 +153,7 @@ const detectDuplicates = (transactions) => {
       // Verifica similaridade
       const isSameAmount = tx1.amount === tx2.amount;
       const isSameCategory = tx1.category === tx2.category;
-      
+
       // Limpa os nomes para comparar sem números de cartões ou datas
       const desc1 = cleanDescription(tx1.description);
       const desc2 = cleanDescription(tx2.description);
@@ -187,7 +187,7 @@ const cleanDescription = (desc) => {
 };
 
 const formatCurrency = (val) => {
-  return new Intl.NumberFormat('pt-PT', { style: 'currency', currency: 'EUR' }).format(val);
+  return new Intl.NumberFormat('pt-PT', { style: 'currency', currency: 'AOA' }).format(val);
 };
 
 const formatDate = (dateStr) => {
