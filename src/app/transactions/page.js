@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import {
   getTransactions,
@@ -23,6 +23,14 @@ import {
 } from 'lucide-react';
 
 export default function Transactions() {
+  return (
+    <Suspense fallback={<div style={{ padding: '2rem', textAlign: 'center' }}>Carregando transações...</div>}>
+      <TransactionsContent />
+    </Suspense>
+  );
+}
+
+function TransactionsContent() {
   const [mounted, setMounted] = useState(false);
   const [transactions, setTransactions] = useState([]);
   const [budgets, setBudgets] = useState([]);
